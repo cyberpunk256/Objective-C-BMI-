@@ -1,0 +1,117 @@
+import "puzzleViewController.h"
+
+@interface puzzleViewController ()
+
+@end
+
+@implementation puzzleViewController
+
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  // Do any additional setup after loading the view. typically from a nib.
+  
+  arrImageOriginal = [[NSMutableArray alloc] init];
+  arrImageTrimmingUe = [[NSMutableArray alloc] init];
+  arrImageTrimmingNaka = [[NSMutableArray alloc] init];
+  arrImageTrimmingShita = [[NSMutableArray alloc] init];
+  
+  [arrImageOriginal addObject: [UIImage imageNamed:@"inu.png"]];
+  [arrImageOriginal addObject: [UIImage imageNamed:@"saru.png"]];
+  [arrImageOriginal addObject: [UIImage imageNamed:@"kiji.png"]];
+  
+  for(int j=0; j<3; j++){
+      CGImageRef imageDataRef = [[arrImageOriginal objectAtIndex:j]CGImage];
+      
+      CGImageRef trimmedImageDataRef;
+      
+      for(int i=0; i<3; i++){
+          trimmedImageDataRef = CGImageCreateWithImageInRect(imageDataRef, CGRectMake(0, 100*i, 200, 100));
+          if (i == 0){
+              [arrImageTrimmingUe addObject: [UIImage
+              imageWithCGImage:trimmedImageDataRef]];
+          } else if(i==1){
+              [arrImageTrimmingUe addObject: [UIImage
+              imageWithCGImage:trimmedImageDataRef]];
+          }else if(i==2){
+               [arrImageTrimmingUe addObject: [UIImage
+              imageWithCGImage:trimmedImageDataRef]];
+          }
+     }
+  }
+  
+  ivUe = [[UIImageView alloc] init];
+  ivUe.frame = CGRectMake(10, 20, 200, 100);
+  [self.view addSubview:ivUe];
+  
+  ivNaka = [[UIImageView alloc] init];
+  ivNaka.frame = CGRecrMake(10, 120, 200, 100);
+  [self.view addSubview:ivNaka];
+  iv Shita = [[UIImageView alloc] init]:
+  ivShita.frame = CGRectMake(10, 220, 200, 100);
+  [self. view addSubview:ivShita];
+  
+  idxUe = 0;
+  idxNaka = 1;
+  idxShita = 2;
+  
+  ivUe.image = [arrImageTrimmingUe objectAtIndex:idxUe];
+  idxNaka.image = [arrImageTrimmingNaka objectAtIndex:idxUe];
+  idxShita.image = [arrImageTrimmingShita objectAtIndex:idxUe];
+  
+  ivUe.userInteactionEnabled = YES;
+  ivNaka.userInteractionEnabled = YES;
+  ivShita.userInteractionEnabled = YES;
+  
+  [self checkPuzzleAndDisplabel];
+}
+
+- (void)difReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+ }
+ 
+ - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+      if([event touchesForView:ivUe] ! = NULL){
+           if(idxUe == 2){
+              idxUe = 0;
+           }else {
+               idxUe += 1;
+           }
+           ivUe.image = [arrImageTrimmmingUe objectAtIndex: idxUe];
+       } else if ([event touchesForView:ivNaka] != NULL){
+            if(idxNaka == 2){
+                idxNaka = 0;
+            } else{
+                idxNaka += 1;
+            }
+            ivNaka.image = [arrImageTrimmingNaka objectAtIndex: [idxNaka];
+       } else if([event touchesForview:ivShita] != NULL){
+            if(idxShita == 2){
+                  idxShita = 0;
+             } else{
+                  idxShita += 1;
+             }
+             ivShita.image = [arrImagTrimmingShita objectAtIndex: idxShita];
+       }
+       
+       [self checkPuzzleAndDispLabel];
+   }
+   
+   - (void) checkPuzzleAndDipLabel
+   {
+        if(idxUe == 0 && idxNaka == 0 && idxShita == 0){
+             labelComplete.text = @"dog";
+        } else if (idxUe == 1 && idxNaka == 1 && idxShita ==1){
+              labelComplete.text =@"monkey";
+        if(idxUe == 2 && idxNaka == 0 && idxShita == 2){
+             labelComplete.text = @"bird";
+        } else {
+            labelComplete.text = @"";
+        }
+   }
+   
+   @end
+
+   
